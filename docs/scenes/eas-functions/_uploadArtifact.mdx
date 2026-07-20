@@ -2,6 +2,8 @@ import { GithubIcon } from '@expo/styleguide-icons/custom/GithubIcon';
 
 import { BoxLink } from '~/ui/components/BoxLink';
 import { YesIcon, NoIcon } from '~/ui/components/DocIcons';
+import { EASFunctionExampleTabs } from '~/ui/components/EASFunctionDescription';
+import { Tab } from '~/ui/components/Tabs';
 
 | Property       | Type    | Required    | Description                                                                                                                                                                                                                                                     |
 | -------------- | ------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -16,6 +18,55 @@ import { YesIcon, NoIcon } from '~/ui/components/DocIcons';
 | Property      | Type   | Description                                                                                                               |
 | ------------- | ------ | ------------------------------------------------------------------------------------------------------------------------- |
 | `artifact_id` | string | The ID of the uploaded artifact. Can be passed to [`eas/download_artifact`](/eas/workflows/syntax/#easdownload_artifact). |
+
+<EASFunctionExampleTabs>
+
+<Tab label="Workflow">
+
+```yaml
+jobs:
+  my_job:
+    steps:
+      - uses: eas/checkout
+      - name: Run tests
+        run: ./scripts/run-tests.sh # writes results into ./results
+      # @info Upload whatever the previous step produced. #
+      - uses: eas/upload_artifact
+        # @info `if: always()` uploads results even when a previous step failed. #
+        if: ${{ always() }}
+        with:
+          type: other
+          name: test-results
+          path: |
+            results/**/*
+```
+
+</Tab>
+
+<Tab label="Custom Build">
+
+```yaml upload.yml
+build:
+  name: Upload artifacts
+  steps:
+    - eas/checkout
+    # - ...
+    - eas/upload_artifact:
+        name: Upload application archive
+        inputs:
+          path: fixtures/app-debug.apk
+    - eas/upload_artifact:
+        name: Upload artifacts
+        inputs:
+          type: build-artifact
+          path: |
+            assets/*.jpg
+            assets/*.png
+```
+
+</Tab>
+
+</EASFunctionExampleTabs>
 
 <BoxLink
   title="eas/upload_artifact source code"

@@ -2,6 +2,8 @@ import { GithubIcon } from '@expo/styleguide-icons/custom/GithubIcon';
 
 import { BoxLink } from '~/ui/components/BoxLink';
 import { YesIcon, NoIcon } from '~/ui/components/DocIcons';
+import { EASFunctionExampleTabs } from '~/ui/components/EASFunctionDescription';
+import { Tab } from '~/ui/components/Tabs';
 
 | Property             | Type    | Required    | Description                                                                                                                                                                                                                                                             |
 | -------------------- | ------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -13,6 +15,41 @@ import { YesIcon, NoIcon } from '~/ui/components/DocIcons';
 | `api_key`            | string  | <NoIcon />  | PostHog personal API key. Defaults to the `POSTHOG_CLI_API_KEY` environment variable. Requires the `feature_flag:read` and `feature_flag:write` scopes.                                                                                                                 |
 | `project_id`         | string  | <NoIcon />  | PostHog project ID. Defaults to the `POSTHOG_CLI_PROJECT_ID` environment variable.                                                                                                                                                                                      |
 | `ignore_error`       | boolean | <NoIcon />  | When `true`, a network error, a missing flag, or an unexpected response is logged but does not fail the step. Defaults to `false`. A permissions error, or invalid input such as an out-of-range `rollout_percentage`, always fails the step.                           |
+
+<EASFunctionExampleTabs>
+
+<Tab label="Workflow">
+
+```yaml
+jobs:
+  my_job:
+    steps:
+      # @info #
+      - uses: eas/posthog_flag_rollout
+        # @end #
+        with:
+          flag: new-checkout
+          rollout_percentage: 25
+```
+
+</Tab>
+
+<Tab label="Custom Build">
+
+```yaml posthog-flag-rollout.yml
+build:
+  name: Roll out a PostHog feature flag
+  steps:
+    - eas/posthog_flag_rollout:
+        name: Roll out the flag to 25 percent
+        inputs:
+          flag: new-checkout
+          rollout_percentage: 25
+```
+
+</Tab>
+
+</EASFunctionExampleTabs>
 
 <BoxLink
   title="eas/posthog_flag_rollout source code"

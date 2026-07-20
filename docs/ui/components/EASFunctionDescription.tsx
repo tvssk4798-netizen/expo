@@ -1,4 +1,15 @@
-import { ComponentType } from 'react';
+import {
+  Children,
+  ComponentType,
+  Fragment,
+  PropsWithChildren,
+  ReactElement,
+  ReactNode,
+  createContext,
+  isValidElement,
+  useContext,
+  useMemo,
+} from 'react';
 
 import Checkout from '~/scenes/eas-functions/_checkout.mdx';
 import DownloadArtifact from '~/scenes/eas-functions/_downloadArtifact.mdx';
@@ -16,6 +27,7 @@ import SaveCache from '~/scenes/eas-functions/_saveCache.mdx';
 import SendSlackMessage from '~/scenes/eas-functions/_sendSlackMessage.mdx';
 import UploadArtifact from '~/scenes/eas-functions/_uploadArtifact.mdx';
 import UseNpmToken from '~/scenes/eas-functions/_useNpmToken.mdx';
+import { Tab, Tabs } from '~/ui/components/Tabs';
 
 const FUNCTIONS: Record<string, ComponentType> = {
   checkout: Checkout,
@@ -38,12 +50,58 @@ const FUNCTIONS: Record<string, ComponentType> = {
 
 type EASFunctionName = keyof typeof FUNCTIONS;
 
-export function EASFunctionDescription({ name }: { name: EASFunctionName }) {
+const ExampleModeContext = createContext<string | undefined>(undefined);
+
+export function EASFunctionDescription({
+  name,
+  exampleMode,
+}: {
+  name: EASFunctionName;
+  exampleMode?: string;
+}) {
   const Content = FUNCTIONS[name];
   if (!Content) {
     throw new Error(
       `Unknown EAS function "${String(name)}". Valid names: ${Object.keys(FUNCTIONS).join(', ')}`
     );
   }
-  return <Content />;
+  return (
+    <ExampleModeContext.Provider value={exampleMode}>
+      <Content />
+    </ExampleModeContext.Provider>
+  );
+}
+
+type TabChild = ReactElement<{ label?: string; children?: ReactNode }>;
+
+const collectTabChildren = (nodes: ReactNode): TabChild[] => {
+  const panels: TabChild[] = [];
+  Children.forEach(nodes, child => {
+    if (!isValidElement<{ children?: ReactNode }>(child)) {
+      return;
+    }
+    if (child.type === Fragment) {
+      panels.push(...collectTabChildren(child.props.children));
+      return;
+    }
+    if (child.type === Tab) {
+      panels.push(child as TabChild);
+    }
+  });
+  return panels;
+};
+
+export function EASFunctionExampleTabs({ children }: PropsWithChildren) {
+  const exampleMode = useContext(ExampleModeContext);
+  const tabs = useMemo(() => collectTabChildren(children), [children]);
+
+  if (exampleMode) {
+    const match = tabs.find(tab => tab.props.label === exampleMode);
+    if (match) {
+      return <>{match.props.children}</>;
+    }
+    return null;
+  }
+
+  return <Tabs>{children}</Tabs>;
 }

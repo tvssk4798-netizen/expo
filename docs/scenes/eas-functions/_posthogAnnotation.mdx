@@ -2,6 +2,8 @@ import { GithubIcon } from '@expo/styleguide-icons/custom/GithubIcon';
 
 import { BoxLink } from '~/ui/components/BoxLink';
 import { YesIcon, NoIcon } from '~/ui/components/DocIcons';
+import { EASFunctionExampleTabs } from '~/ui/components/EASFunctionDescription';
+import { Tab } from '~/ui/components/Tabs';
 
 | Property       | Type    | Required    | Description                                                                                                                                                  |
 | -------------- | ------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -10,6 +12,39 @@ import { YesIcon, NoIcon } from '~/ui/components/DocIcons';
 | `api_key`      | string  | <NoIcon />  | PostHog personal API key. Defaults to the `POSTHOG_CLI_API_KEY` environment variable. Requires the `annotation:write` scope.                                 |
 | `project_id`   | string  | <NoIcon />  | PostHog project ID. Defaults to the `POSTHOG_CLI_PROJECT_ID` environment variable.                                                                           |
 | `ignore_error` | boolean | <NoIcon />  | When `true`, a network error or an unexpected response is logged but does not fail the step. Defaults to `false`. A permissions error always fails the step. |
+
+<EASFunctionExampleTabs>
+
+<Tab label="Workflow">
+
+```yaml
+jobs:
+  my_job:
+    steps:
+      # @info #
+      - uses: eas/posthog_annotation
+        # @end #
+        with:
+          content: Published update to production
+```
+
+</Tab>
+
+<Tab label="Custom Build">
+
+```yaml posthog-annotation.yml
+build:
+  name: Annotate the release in PostHog
+  steps:
+    - eas/posthog_annotation:
+        name: Create a PostHog annotation
+        inputs:
+          content: Published a production build
+```
+
+</Tab>
+
+</EASFunctionExampleTabs>
 
 <BoxLink
   title="eas/posthog_annotation source code"

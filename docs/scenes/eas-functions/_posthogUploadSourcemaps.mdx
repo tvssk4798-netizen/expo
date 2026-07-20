@@ -2,6 +2,8 @@ import { GithubIcon } from '@expo/styleguide-icons/custom/GithubIcon';
 
 import { BoxLink } from '~/ui/components/BoxLink';
 import { NoIcon } from '~/ui/components/DocIcons';
+import { EASFunctionExampleTabs } from '~/ui/components/EASFunctionDescription';
+import { Tab } from '~/ui/components/Tabs';
 
 | Property       | Type    | Required   | Description                                                                                                              |
 | -------------- | ------- | ---------- | ------------------------------------------------------------------------------------------------------------------------ |
@@ -9,6 +11,47 @@ import { NoIcon } from '~/ui/components/DocIcons';
 | `api_key`      | string  | <NoIcon /> | PostHog personal API key. Defaults to the `POSTHOG_CLI_API_KEY` environment variable. Requires source map upload access. |
 | `project_id`   | string  | <NoIcon /> | PostHog project ID. Defaults to the `POSTHOG_CLI_PROJECT_ID` environment variable.                                       |
 | `ignore_error` | boolean | <NoIcon /> | When `true`, a failed upload is logged but does not fail the step. Defaults to `false`.                                  |
+
+<EASFunctionExampleTabs>
+
+<Tab label="Workflow">
+
+```yaml
+jobs:
+  publish_update:
+    steps:
+      - uses: eas/checkout
+      - uses: eas/install_node_modules
+      - run: npx expo export --source-maps
+      # @info #
+      - uses: eas/posthog_upload_sourcemaps
+        # @end #
+        with:
+          directory: dist
+```
+
+</Tab>
+
+<Tab label="Custom Build">
+
+```yaml posthog-upload-sourcemaps.yml
+build:
+  name: Export and upload source maps
+  steps:
+    - eas/checkout
+    - eas/install_node_modules
+    - run:
+        name: Export the bundle and source maps
+        command: npx expo export --source-maps --platform ios
+    - eas/posthog_upload_sourcemaps:
+        name: Upload source maps to PostHog
+        inputs:
+          directory: dist
+```
+
+</Tab>
+
+</EASFunctionExampleTabs>
 
 <BoxLink
   title="eas/posthog_upload_sourcemaps source code"

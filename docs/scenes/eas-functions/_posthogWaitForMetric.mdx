@@ -2,6 +2,8 @@ import { GithubIcon } from '@expo/styleguide-icons/custom/GithubIcon';
 
 import { BoxLink } from '~/ui/components/BoxLink';
 import { YesIcon, NoIcon } from '~/ui/components/DocIcons';
+import { EASFunctionExampleTabs } from '~/ui/components/EASFunctionDescription';
+import { Tab } from '~/ui/components/Tabs';
 
 | Property           | Type   | Required    | Description                                                                                                             |
 | ------------------ | ------ | ----------- | ----------------------------------------------------------------------------------------------------------------------- |
@@ -18,6 +20,43 @@ import { YesIcon, NoIcon } from '~/ui/components/DocIcons';
 | Property | Type   | Description                                     |
 | -------- | ------ | ----------------------------------------------- |
 | `value`  | string | The metric value that satisfied the comparison. |
+
+<EASFunctionExampleTabs>
+
+<Tab label="Workflow">
+
+```yaml
+jobs:
+  my_job:
+    steps:
+      # @info #
+      - uses: eas/posthog_wait_for_metric
+        # @end #
+        with:
+          query: SELECT count() FROM events WHERE event = '$exception' AND timestamp > now() - INTERVAL 15 MINUTE
+          operator: lt
+          threshold: 10
+```
+
+</Tab>
+
+<Tab label="Custom Build">
+
+```yaml posthog-wait-for-metric.yml
+build:
+  name: Gate on the error count
+  steps:
+    - eas/posthog_wait_for_metric:
+        name: Wait for the error count to stay low
+        inputs:
+          query: SELECT count() FROM events WHERE event = '$exception' AND timestamp > now() - INTERVAL 15 MINUTE
+          operator: lt
+          threshold: 10
+```
+
+</Tab>
+
+</EASFunctionExampleTabs>
 
 <BoxLink
   title="eas/posthog_wait_for_metric source code"

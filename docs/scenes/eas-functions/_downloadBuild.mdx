@@ -14,6 +14,26 @@ import { YesIcon, NoIcon } from '~/ui/components/DocIcons';
 | --------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `artifact_path` | string | The absolute path to the matching application archive. This output can be used as input into other steps. For example, to upload or process the artifact further. |
 
+```yaml
+jobs:
+  build_ios:
+    type: build
+    params:
+      platform: ios
+      profile: production
+
+  my_job:
+    needs: [build_ios]
+    steps:
+      - uses: eas/download_build
+        id: download_build
+        with:
+          build_id: ${{ needs.build_ios.outputs.build_id }}
+      - name: Print artifact path
+        run: |
+          echo "Artifact path: ${{ steps.download_build.outputs.artifact_path }}"
+```
+
 <BoxLink
   title="eas/download_build source code"
   description="View the source code for the eas/download_build function on GitHub."

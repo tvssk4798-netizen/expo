@@ -1,6 +1,39 @@
 import { GithubIcon } from '@expo/styleguide-icons/custom/GithubIcon';
 
 import { BoxLink } from '~/ui/components/BoxLink';
+import { EASFunctionExampleTabs } from '~/ui/components/EASFunctionDescription';
+import { Tab } from '~/ui/components/Tabs';
+
+<EASFunctionExampleTabs>
+
+<Tab label="Workflow">
+
+```yaml
+jobs:
+  my_job:
+    steps:
+      # @info #
+      - uses: eas/checkout
+        # @end #
+```
+
+</Tab>
+
+<Tab label="Custom Build">
+
+```yaml upload.yml
+build:
+  name: List files
+  steps:
+    - eas/checkout
+    - run:
+        name: List assets
+        run: ls assets
+```
+
+</Tab>
+
+</EASFunctionExampleTabs>
 
 <BoxLink
   title="eas/checkout source code"

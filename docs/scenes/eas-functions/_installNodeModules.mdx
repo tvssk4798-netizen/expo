@@ -1,6 +1,40 @@
 import { GithubIcon } from '@expo/styleguide-icons/custom/GithubIcon';
 
 import { BoxLink } from '~/ui/components/BoxLink';
+import { EASFunctionExampleTabs } from '~/ui/components/EASFunctionDescription';
+import { Tab } from '~/ui/components/Tabs';
+
+<EASFunctionExampleTabs>
+
+<Tab label="Workflow">
+
+```yaml example.yml
+jobs:
+  my_job:
+    steps:
+      - uses: eas/checkout
+      # @info #
+      - uses: eas/install_node_modules
+      # @end #
+```
+
+</Tab>
+
+<Tab label="Custom Build">
+
+```yaml example.yml
+build:
+  name: Install node modules
+  steps:
+    - eas/checkout
+    # @info #
+    - eas/install_node_modules
+    # @end #
+```
+
+</Tab>
+
+</EASFunctionExampleTabs>
 
 <BoxLink
   title="eas/install_node_modules source code"

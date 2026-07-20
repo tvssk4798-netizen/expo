@@ -14,6 +14,24 @@ import { NoIcon } from '~/ui/components/DocIcons';
 | --------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `artifact_path` | string | The path to the downloaded artifact. This output can be used as input into other steps in your workflow. For example, to send or process the artifact. |
 
+```yaml
+jobs:
+  maestro_tests:
+    type: maestro
+    params:
+      build_id: '123-abc'
+      flow_path: 'path/to/flow.yaml'
+  my_job:
+    needs: [maestro_tests]
+    steps:
+      - uses: eas/download_artifact
+        id: download_artifact
+        with:
+          name: 'iOS Maestro Test Report (junit)'
+      - name: Print Maestro output
+        run: echo ${{ steps.download_artifact.outputs.artifact_path }}
+```
+
 <BoxLink
   title="eas/download_artifact source code"
   description="View the source code for the eas/download_artifact function on GitHub."

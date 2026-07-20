@@ -9,6 +9,22 @@ import { YesIcon, NoIcon } from '~/ui/components/DocIcons';
 | `restore_keys` | `string` | <NoIcon />  | A fallback key or prefix to use if the exact key is not found. If provided, the cache system will look for any cache entry that starts with this prefix. |
 | `path`         | `string` | <YesIcon /> | The path where the cache should be restored. This should match the path used when saving the cache.                                                      |
 
+```yaml
+jobs:
+  my_job:
+    steps:
+      - uses: eas/checkout
+      - uses: eas/install_node_modules
+      - uses: eas/prebuild
+      # @info #
+      - uses: eas/restore_cache
+        with:
+          key: cache-${{ hashFiles('package-lock.json') }}
+          restore_keys: cache
+          path: /path/to/cache
+      # @end #
+```
+
 <BoxLink
   title="eas/restore_cache source code"
   description="View the source code for the eas/restore_cache function on GitHub."

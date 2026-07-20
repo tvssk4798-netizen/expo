@@ -2,6 +2,8 @@ import { GithubIcon } from '@expo/styleguide-icons/custom/GithubIcon';
 
 import { BoxLink } from '~/ui/components/BoxLink';
 import { YesIcon, NoIcon } from '~/ui/components/DocIcons';
+import { EASFunctionExampleTabs } from '~/ui/components/EASFunctionDescription';
+import { Tab } from '~/ui/components/Tabs';
 
 | Property       | Type    | Required    | Description                                                                                                                                                                                  |
 | -------------- | ------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -11,6 +13,45 @@ import { YesIcon, NoIcon } from '~/ui/components/DocIcons';
 | `api_key`      | string  | <NoIcon />  | PostHog project API key. Defaults to the `EXPO_PUBLIC_POSTHOG_API_KEY` environment variable set by `eas integrations:posthog:connect`, falling back to `POSTHOG_API_KEY` if that is not set. |
 | `host`         | string  | <NoIcon />  | PostHog host. Defaults to the `EXPO_PUBLIC_POSTHOG_HOST` environment variable, or `https://us.posthog.com`.                                                                                  |
 | `ignore_error` | boolean | <NoIcon />  | When `true`, a failure to send the event is logged but does not fail the step. Defaults to `false`.                                                                                          |
+
+<EASFunctionExampleTabs>
+
+<Tab label="Workflow">
+
+```yaml
+jobs:
+  my_job:
+    steps:
+      # @info #
+      - uses: eas/posthog_capture_event
+        # @end #
+        with:
+          event: ota_update_published
+          properties:
+            branch: main
+```
+
+</Tab>
+
+<Tab label="Custom Build">
+
+```yaml posthog-capture-event.yml
+build:
+  name: Build and mark the release in PostHog
+  steps:
+    - eas/build
+    - eas/posthog_capture_event:
+        name: Capture a PostHog event
+        inputs:
+          event: store_build_finished
+          properties:
+            platform: ios
+            profile: production
+```
+
+</Tab>
+
+</EASFunctionExampleTabs>
 
 <BoxLink
   title="eas/posthog_capture_event source code"
