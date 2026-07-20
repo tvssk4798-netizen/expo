@@ -1,7 +1,17 @@
-import { GithubIcon } from '@expo/styleguide-icons/custom/GithubIcon';
+import { GithubIcon } from "@expo/styleguide-icons/custom/GithubIcon";
 
-import { BoxLink } from '~/ui/components/BoxLink';
-import { YesIcon, NoIcon } from '~/ui/components/DocIcons';
+import { BoxLink } from "~/ui/components/BoxLink";
+import { YesIcon, NoIcon } from "~/ui/components/DocIcons";
+
+```yaml
+jobs:
+  my_job:
+    steps:
+      - uses: eas/download_build
+        with:
+          build_id: string # Required. ID of the build to download.
+          extensions: [apk, aab, ipa, app] # Optional. List of file extensions to look for. Defaults to ["apk", "aab", "ipa", "app"].
+```
 
 | Property     | Type     | Required    | Default                        | Description                                                                |
 | ------------ | -------- | ----------- | ------------------------------ | -------------------------------------------------------------------------- |
@@ -13,6 +23,8 @@ import { YesIcon, NoIcon } from '~/ui/components/DocIcons';
 | Property        | Type   | Description                                                                                                                                                       |
 | --------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `artifact_path` | string | The absolute path to the matching application archive. This output can be used as input into other steps. For example, to upload or process the artifact further. |
+
+Example usage:
 
 ```yaml
 jobs:

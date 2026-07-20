@@ -1,8 +1,8 @@
-import { GithubIcon } from '@expo/styleguide-icons/custom/GithubIcon';
+import { GithubIcon } from "@expo/styleguide-icons/custom/GithubIcon";
 
-import { BoxLink } from '~/ui/components/BoxLink';
-import { EASFunctionExampleTabs } from '~/ui/components/EASFunctionDescription';
-import { Tab } from '~/ui/components/Tabs';
+import { BoxLink } from "~/ui/components/BoxLink";
+import { EASFunctionExampleTabs } from "~/ui/components/EASFunctionDescription";
+import { Tab } from "~/ui/components/Tabs";
 
 | Property        | Type      | Description                                                                                                                                 |
 | --------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -24,9 +24,41 @@ jobs:
       # @end #
 ```
 
+```yaml
+jobs:
+  my_job:
+    steps:
+      - uses: eas/checkout
+      - uses: eas/install_node_modules
+      - uses: eas/resolve_apple_team_id_from_credentials
+        id: resolve_apple_team_id_from_credentials
+      # @info #
+      - uses: eas/prebuild
+        with:
+          clean: false
+          apple_team_id: ${{ steps.resolve_apple_team_id_from_credentials.outputs.apple_team_id }}
+      # @end #
+```
+
 </Tab>
 
 <Tab label="Custom Build">
+
+```yaml example.yml
+build:
+  name: Run prebuild script
+  steps:
+    - eas/checkout
+    - eas/install_node_modules
+    - eas/resolve_apple_team_id_from_credentials:
+        id: resolve_apple_team_id_from_credentials
+    # @info #
+    - eas/prebuild:
+        inputs:
+          clean: false
+          apple_team_id: ${ steps.resolve_apple_team_id_from_credentials.apple_team_id }
+    # @end #
+```
 
 ```yaml example.yml
 build:

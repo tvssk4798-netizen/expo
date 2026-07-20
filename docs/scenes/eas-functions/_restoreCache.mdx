@@ -1,7 +1,7 @@
-import { GithubIcon } from '@expo/styleguide-icons/custom/GithubIcon';
+import { GithubIcon } from "@expo/styleguide-icons/custom/GithubIcon";
 
-import { BoxLink } from '~/ui/components/BoxLink';
-import { YesIcon, NoIcon } from '~/ui/components/DocIcons';
+import { BoxLink } from "~/ui/components/BoxLink";
+import { YesIcon, NoIcon } from "~/ui/components/DocIcons";
 
 | Property       | Type     | Required    | Description                                                                                                                                              |
 | -------------- | -------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -21,6 +21,21 @@ jobs:
         with:
           key: cache-${{ hashFiles('package-lock.json') }}
           restore_keys: cache
+          path: /path/to/cache
+      # @end #
+```
+
+```yaml
+jobs:
+  my_job:
+    steps:
+      - uses: eas/checkout
+      - uses: eas/install_node_modules
+      - uses: eas/prebuild
+      # @info #
+      - uses: eas/restore_cache
+        with:
+          key: cache-${{ hashFiles('package-lock.json') }}
           path: /path/to/cache
       # @end #
 ```
