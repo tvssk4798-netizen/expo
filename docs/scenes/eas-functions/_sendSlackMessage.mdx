@@ -1,8 +1,8 @@
-import { GithubIcon } from "@expo/styleguide-icons/custom/GithubIcon";
+import { GithubIcon } from '@expo/styleguide-icons/custom/GithubIcon';
 
-import { BoxLink } from "~/ui/components/BoxLink";
-import { EASFunctionExampleTabs } from "~/ui/components/EASFunctionDescription";
-import { Tab } from "~/ui/components/Tabs";
+import { BoxLink } from '~/ui/components/BoxLink';
+import { EASFunctionExampleTabs } from '~/ui/components/EASFunctionDescription';
+import { Tab } from '~/ui/components/Tabs';
 
 | Property         | Type     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ---------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -22,7 +22,7 @@ jobs:
       - uses: eas/send_slack_message
         # @end #
         with:
-          message: "This is a message sent to a Slack channel"
+          message: 'This is a message sent to a Slack channel'
           slack_hook_url: ${{ env.ANOTHER_SLACK_HOOK_URL }}
 ```
 
@@ -38,17 +38,17 @@ build:
     - eas/send_slack_message:
         name: Send Slack message to a given webhook URL
         inputs:
-          message: "This is a message to plain input URL"
-          slack_hook_url: "https://hooks.slack.com/services/[rest_of_hook_url]"
+          message: 'This is a message to plain input URL'
+          slack_hook_url: 'https://hooks.slack.com/services/[rest_of_hook_url]'
     # @end #
     - eas/send_slack_message:
         name: Send Slack message to a default webhook URL from SLACK_HOOK_URL secret
         inputs:
-          message: "This is a test message to default URL from SLACK_HOOK_URL secret"
+          message: 'This is a test message to default URL from SLACK_HOOK_URL secret'
     - eas/send_slack_message:
         name: Send Slack message to a webhook URL from specified secret
         inputs:
-          message: "This is a test message to a URL from specified secret"
+          message: 'This is a test message to a URL from specified secret'
           slack_hook_url: ${ eas.env.ANOTHER_SLACK_HOOK_URL }
 
     - eas/build
@@ -119,13 +119,13 @@ build:
                   - type: button
                     text:
                       type: plain_text
-                      text: "Do a thing :rocket:"
+                      text: 'Do a thing :rocket:'
                       emoji: true
                     value: a_thing
                   - type: button
                     text:
                       type: plain_text
-                      text: "Do another thing :x:"
+                      text: 'Do another thing :x:'
                       emoji: true
                     value: another_thing
 ```

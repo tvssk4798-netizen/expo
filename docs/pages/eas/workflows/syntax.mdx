@@ -5,13 +5,13 @@ description: Reference guide for the EAS Workflows configuration file syntax.
 maxHeadingDepth: 5
 ---
 
-import { GithubIcon } from "@expo/styleguide-icons/custom/GithubIcon";
+import { GithubIcon } from '@expo/styleguide-icons/custom/GithubIcon';
 
-import { BoxLink } from "~/ui/components/BoxLink";
-import { YesIcon, NoIcon } from "~/ui/components/DocIcons";
-import { FileTree } from "~/ui/components/FileTree";
-import { Terminal } from "~/ui/components/Snippet";
-import { EASFunctionDescription } from "~/ui/components/EASFunctionDescription";
+import { BoxLink } from '~/ui/components/BoxLink';
+import { YesIcon, NoIcon } from '~/ui/components/DocIcons';
+import { FileTree } from '~/ui/components/FileTree';
+import { Terminal } from '~/ui/components/Snippet';
+import { EASFunctionDescription } from '~/ui/components/EASFunctionDescription';
 
 A workflow is a configurable automated process made up of one or more jobs. You must create a YAML file to define your workflow configuration.
 
@@ -27,10 +27,10 @@ For example:
 
 <FileTree
   files={[
-    ["my-app/.eas/workflows/create-development-builds.yml", ""],
-    ["my-app/.eas/workflows/publish-preview-update.yml", ""],
-    ["my-app/.eas/workflows/deploy-to-production.yml", ""],
-    ["my-app/eas.json", ""],
+    ['my-app/.eas/workflows/create-development-builds.yml', ''],
+    ['my-app/.eas/workflows/publish-preview-update.yml', ''],
+    ['my-app/.eas/workflows/deploy-to-production.yml', ''],
+    ['my-app/eas.json', ''],
   ]}
 />
 
@@ -323,7 +323,7 @@ Runs your workflow on a schedule using [unix-cron](https://www.ibm.com/docs/en/d
 ```yaml
 on:
   schedule:
-    - cron: "0 0 * * *" # Runs at midnight GMT every day
+    - cron: '0 0 * * *' # Runs at midnight GMT every day
 ```
 
 ### `on.workflow_dispatch.inputs`
@@ -338,8 +338,8 @@ on:
       name:
         type: string
         required: false
-        description: "Name of the person to greet"
-        default: "World"
+        description: 'Name of the person to greet'
+        default: 'World'
       choice_example:
         type: choice
         options:
@@ -365,7 +365,7 @@ When running a workflow with inputs, you can provide them in several ways:
 
    <Terminal
      cmd={[
-       "$ eas workflow:run .eas/workflows/deploy.yml -F environment=production -F debug=true -F version=1.2.3",
+       '$ eas workflow:run .eas/workflows/deploy.yml -F environment=production -F debug=true -F version=1.2.3',
      ]}
    />
 
@@ -380,7 +380,7 @@ When running a workflow with inputs, you can provide them in several ways:
 3. Interactive prompts:
    If required inputs are missing and you're not using `--non-interactive`, the CLI will prompt you for them:
 
-   <Terminal cmd={["$ eas workflow:run .eas/workflows/deploy.yml"]} />
+   <Terminal cmd={['$ eas workflow:run .eas/workflows/deploy.yml']} />
 
 #### Usage
 
@@ -393,7 +393,7 @@ on:
       name:
         type: string
         required: true
-        description: "Name of the person to greet"
+        description: 'Name of the person to greet'
 
 jobs:
   deploy:
@@ -554,16 +554,16 @@ name: Set up custom versions
 defaults:
   tools:
     node: latest
-    yarn: "2"
+    yarn: '2'
     corepack: true
-    pnpm: "8"
-    bun: "1.0.0"
+    pnpm: '8'
+    bun: '1.0.0'
     fastlane: 2.224.0
     cocoapods: 1.12.0
 
 on:
   push:
-    branches: ["*"]
+    branches: ['*']
 
 jobs:
   setup:
@@ -773,11 +773,11 @@ To ease the migration from GitHub Actions to EAS Workflows we expose some contex
 ```ts
 type GitHubContext = {
   triggering_actor?: string;
-  event_name: "pull_request" | "push" | "schedule" | "workflow_dispatch";
+  event_name: 'pull_request' | 'push' | 'schedule' | 'workflow_dispatch';
   sha: string;
   ref: string; // e.g. refs/heads/main
   ref_name: string; // e.g. main
-  ref_type: "branch" | "tag" | "other";
+  ref_type: 'branch' | 'tag' | 'other';
   commit_message?: string; // Only available for push and schedule events
   label?: string;
   repository?: string;
@@ -796,7 +796,7 @@ type GitHubContext = {
       number: number;
       title: string;
       body: string | null;
-      state: "open" | "closed";
+      state: 'open' | 'closed';
       draft: boolean;
       merged: boolean | null;
       // ... Other fields from the GitHub Pull Request webhook payload
@@ -877,7 +877,7 @@ type AppStoreConnectContext = {
   };
   build_upload?: {
     id: string;
-    state: "awaiting_upload" | "processing" | "failed" | "complete";
+    state: 'awaiting_upload' | 'processing' | 'failed' | 'complete';
     cf_bundle_version?: string;
     build?: {
       id: string;
@@ -893,7 +893,7 @@ type AppStoreConnectContext = {
   };
   beta_feedback?: {
     id: string;
-    type: "crash" | "screenshot";
+    type: 'crash' | 'screenshot';
     url: string;
   };
 };
@@ -1903,10 +1903,7 @@ Uploads JavaScript source maps to PostHog so that PostHog symbolicates stack tra
 
 ##### Properties
 
-<EASFunctionDescription
-  name="posthog_upload_sourcemaps"
-  exampleMode="Workflow"
-/>
+<EASFunctionDescription name="posthog_upload_sourcemaps" exampleMode="Workflow" />
 
 ## Built-in shell functions
 

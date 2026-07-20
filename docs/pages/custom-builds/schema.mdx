@@ -5,12 +5,12 @@ description: A reference of configuration options for custom builds with EAS Bui
 maxHeadingDepth: 5
 ---
 
-import { GithubIcon } from "@expo/styleguide-icons/custom/GithubIcon";
+import { GithubIcon } from '@expo/styleguide-icons/custom/GithubIcon';
 
-import { BoxLink } from "~/ui/components/BoxLink";
-import { Collapsible } from "~/ui/components/Collapsible";
-import { YesIcon, NoIcon } from "~/ui/components/DocIcons";
-import { EASFunctionDescription } from "~/ui/components/EASFunctionDescription";
+import { BoxLink } from '~/ui/components/BoxLink';
+import { Collapsible } from '~/ui/components/Collapsible';
+import { YesIcon, NoIcon } from '~/ui/components/DocIcons';
+import { EASFunctionDescription } from '~/ui/components/EASFunctionDescription';
 
 Creating custom builds for EAS Build helps customize the build process for your project.
 
@@ -925,10 +925,7 @@ Set `NPM_TOKEN` in your project's secrets, and this function will configure the 
 
 Installs node_modules using the package manager (bun, npm, pnpm, or Yarn) detected based on your project. Works with monorepos.
 
-<EASFunctionDescription
-  name="install_node_modules"
-  exampleMode="Custom Build"
-/>
+<EASFunctionDescription name="install_node_modules" exampleMode="Custom Build" />
 
 #### `eas/restore_build_cache`
 
@@ -1218,8 +1215,8 @@ build:
     # @info #
     - eas/configure_android_version:
         inputs:
-          version_code: "123"
-          version_name: "1.0.0"
+          version_code: '123'
+          version_name: '1.0.0'
     # @end #
 ```
 
@@ -1280,8 +1277,8 @@ build:
     # @info #
     - eas/configure_ios_version:
         inputs:
-          build_number: "123"
-          app_version: "1.0.0"
+          build_number: '123'
+          app_version: '1.0.0'
     # @end #
 ```
 
@@ -1737,19 +1734,13 @@ Sends an analytics event to [PostHog](https://posthog.com/). Use it to mark buil
 
 When you do not provide a `distinct_id`, the event is sent anonymously and does not create a PostHog [person profile](https://posthog.com/docs/data/persons).
 
-<EASFunctionDescription
-  name="posthog_capture_event"
-  exampleMode="Custom Build"
-/>
+<EASFunctionDescription name="posthog_capture_event" exampleMode="Custom Build" />
 
 #### `eas/posthog_flag_rollout`
 
 Enables, disables, or rolls out a [PostHog feature flag](https://posthog.com/docs/feature-flags). The function looks up the flag by key and then updates it. Provide at least one of `active`, `rollout_percentage`, or `payload`.
 
-<EASFunctionDescription
-  name="posthog_flag_rollout"
-  exampleMode="Custom Build"
-/>
+<EASFunctionDescription name="posthog_flag_rollout" exampleMode="Custom Build" />
 
 #### `eas/posthog_wait_for_metric`
 
@@ -1757,10 +1748,7 @@ Pauses until a [HogQL](https://posthog.com/docs/hogql) query returns a number th
 
 > **info** This step has no `ignore_error` input. A timeout or an unreadable query always fails the step.
 
-<EASFunctionDescription
-  name="posthog_wait_for_metric"
-  exampleMode="Custom Build"
-/>
+<EASFunctionDescription name="posthog_wait_for_metric" exampleMode="Custom Build" />
 
 #### `eas/posthog_wait_for_query`
 
@@ -1768,10 +1756,7 @@ Pauses until a [HogQL](https://posthog.com/docs/hogql) query returns true. Use i
 
 > **info** Like `eas/posthog_wait_for_metric`, this step has no `ignore_error` input. A timeout or an unreadable query always fails the step.
 
-<EASFunctionDescription
-  name="posthog_wait_for_query"
-  exampleMode="Custom Build"
-/>
+<EASFunctionDescription name="posthog_wait_for_query" exampleMode="Custom Build" />
 
 #### `eas/posthog_annotation`
 
@@ -1785,10 +1770,7 @@ Uploads JavaScript source maps to PostHog so that PostHog symbolicates stack tra
 
 > **warning** This step runs the PostHog CLI, which cannot tell a permissions error apart from any other failure. Unlike the other PostHog functions, setting `ignore_error: true` also hides authentication and scope errors.
 
-<EASFunctionDescription
-  name="posthog_upload_sourcemaps"
-  exampleMode="Custom Build"
-/>
+<EASFunctionDescription name="posthog_upload_sourcemaps" exampleMode="Custom Build" />
 
 ### Using built-in EAS functions to build an app
 

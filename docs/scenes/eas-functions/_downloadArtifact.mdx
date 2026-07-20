@@ -1,7 +1,7 @@
-import { GithubIcon } from "@expo/styleguide-icons/custom/GithubIcon";
+import { GithubIcon } from '@expo/styleguide-icons/custom/GithubIcon';
 
-import { BoxLink } from "~/ui/components/BoxLink";
-import { NoIcon } from "~/ui/components/DocIcons";
+import { BoxLink } from '~/ui/components/BoxLink';
+import { NoIcon } from '~/ui/components/DocIcons';
 
 ```yaml
 jobs:
@@ -33,15 +33,15 @@ jobs:
   maestro_tests:
     type: maestro
     params:
-      build_id: "123-abc"
-      flow_path: "path/to/flow.yaml"
+      build_id: '123-abc'
+      flow_path: 'path/to/flow.yaml'
   my_job:
     needs: [maestro_tests]
     steps:
       - uses: eas/download_artifact
         id: download_artifact
         with:
-          name: "iOS Maestro Test Report (junit)"
+          name: 'iOS Maestro Test Report (junit)'
       - name: Print Maestro output
         run: echo ${{ steps.download_artifact.outputs.artifact_path }}
 ```
