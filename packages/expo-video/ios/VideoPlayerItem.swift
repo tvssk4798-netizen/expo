@@ -44,7 +44,7 @@ class VideoPlayerItem: AVPlayerItem {
     // and cause it to go into .error state triggering the `onStatusChange` event.
     do {
       try await asset.prepareForLoadingIfNeeded()
-      _ = try await asset.load(
+      let (_, _, _, _, _, characteristics) = try await asset.load(
         .duration,
         .preferredTransform,
         .isPlayable,
@@ -52,7 +52,7 @@ class VideoPlayerItem: AVPlayerItem {
         .tracks,
         .availableMediaCharacteristicsWithMediaSelectionOptions
       )
-      for characteristic in try await asset.load(.availableMediaCharacteristicsWithMediaSelectionOptions) {
+      for characteristic in characteristics {
         _ = try await asset.loadMediaSelectionGroup(for: characteristic)
       }
     } catch {
